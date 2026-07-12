@@ -1,81 +1,62 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, useScroll, useSpring } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navItems = [
-    { num: "01", label: "Stories", href: "#stories" },
-    { num: "02", label: "Cars", href: "#cars" },
-    { num: "03", label: "Sound", href: "#sound" },
-    { num: "04", label: "Play", href: "#play" },
-    { num: "05", label: "Signal", href: "#signal" },
-  ];
-
   return (
     <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-        isScrolled
-          ? "bg-[#FCFCFD]/95 backdrop-blur-[20px] border-b border-[rgba(15,23,42,0.04)] shadow-[0_4px_30px_rgba(15,23,42,0.03)] py-4"
-          : "bg-transparent border-transparent py-8"
-      }`}
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="hidden md:flex fixed left-0 top-0 h-screen w-16 bg-[#1C1A24] border-r border-[#49454F] flex-col items-center py-8 z-50"
     >
-      <motion.div
-        className="absolute top-0 left-0 h-[1px] bg-[#79C7FF] origin-left"
-        style={{ scaleX, width: "100%" }}
-      />
-
-      <div className="max-w-[1800px] mx-auto px-8 md:px-12 flex justify-between items-center">
+      <div className="text-[#E6E1E9] font-bold text-xl mb-12 cursor-pointer hover:text-[#7C5CFF] transition-colors">
+        D
+      </div>
+      
+      <div className="flex flex-col gap-8 text-[#CAC4D0]">
+        <a href="#stories" className="hover:text-[#7C5CFF] transition-colors" aria-label="Music">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+        </a>
         
-        <Link href="/" className="text-3xl font-serif italic text-[#0F172A] hover:text-[#79C7FF] transition-colors duration-700">
-          D.
-        </Link>
+        <a href="#movie" className="hover:text-[#7C5CFF] transition-colors" aria-label="Movie">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+            <path d="M7 3v18"></path>
+            <path d="M3 7.5h4"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 16.5h4"></path>
+            <path d="M17 3v18"></path>
+            <path d="M17 7.5h4"></path>
+            <path d="M17 16.5h4"></path>
+          </svg>
+        </a>
         
-        <div className="hidden md:flex items-center gap-12 lg:gap-16">
-          {navItems.map((item) => (
-            <Link key={item.num} href={item.href} className="group flex items-baseline gap-3 cursor-pointer">
-              <span className="font-mono text-[9px] tracking-[0.2em] text-[#0F172A]/30 group-hover:text-[#79C7FF] transition-colors duration-500">
-                {item.num}
-              </span>
-              <motion.span
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[10px] uppercase tracking-[0.2em] text-[#0F172A]/70 group-hover:text-[#0F172A] transition-colors duration-500"
-              >
-                {item.label}
-              </motion.span>
-            </Link>
-          ))}
-        </div>
-
-        <div className="hidden lg:flex items-center gap-5 cursor-default">
-          <div className="flex flex-col text-right">
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#0F172A]/40 mb-0.5">WIB (GMT+7)</span>
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#0F172A]">Building CoreDigital</span>
-          </div>
-          <div className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#79C7FF] opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#0EA5E9]" />
-          </div>
-        </div>
-
+        <a href="#cars" className="hover:text-[#7C5CFF] transition-colors" aria-label="Cars">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+            <circle cx="7" cy="17" r="2"></circle>
+            <path d="M9 17h6"></path>
+            <circle cx="17" cy="17" r="2"></circle>
+          </svg>
+        </a>
+        
+        <a href="#play" className="hover:text-[#7C5CFF] transition-colors" aria-label="Football">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m12 16 3-3-1-4-4 0-1 4z"></path>
+            <path d="m12 16 0 6"></path>
+            <path d="m15 13 4 2"></path>
+            <path d="m14 9 3-5"></path>
+            <path d="m10 9-3-5"></path>
+            <path d="m9 13-4 2"></path>
+          </svg>
+        </a>
       </div>
     </motion.nav>
   );
